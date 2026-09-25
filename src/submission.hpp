@@ -12,11 +12,11 @@
   private:
     std::size_t rows_;
     std::size_t cols_;
-    std::vector<std::vector<double>> grid_; //store temperature value
+    std::vector<double> grid_; //store temperature value
 
   public:
     Grid(std::size_t rows, std::size_t cols) :
-    rows_(rows), cols_(cols), grid_(rows, std::vector<double>(cols,0.0)) {}
+    rows_(rows), cols_(cols), grid_(rows*cols,0.0) {}
 
     std::size_t rows() const {
       return rows_;
@@ -27,11 +27,11 @@
     }
 
     double& operator()(std::size_t i, std::size_t j) {
-      return grid_[i][j];
+      return grid_[i * cols_ + j];
     }
 
     double operator()(std::size_t i, std::size_t j) const {
-      return grid_[i][j];
+      return grid_[i * cols_ + j];
     }
 
   };
