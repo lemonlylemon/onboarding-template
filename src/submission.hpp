@@ -44,10 +44,22 @@
     std::size_t numberOfRows = old_grid.rows();
     std::size_t numberOfCols = old_grid.cols();
 
+    // for (std::size_t x = 0; x < numberOfRows; ++x) {
+    //   for (std::size_t y = 0; y < numberOfCols; ++y) {
+    //     new_grid(x,y) = old_grid(x,y); ///map old grid to the new one
+    //   }
+    // }
+    for (std::size_t y = 0; y < numberOfCols; ++y) {
+      new_grid(0,y) = old_grid(0,y);
+    }
     for (std::size_t x = 0; x < numberOfRows; ++x) {
-      for (std::size_t y = 0; y < numberOfCols; ++y) {
-        new_grid(x,y) = old_grid(x,y); ///map old grid to the new one
-      }
+      new_grid(x,0) = old_grid(x,0);
+    }
+    for (std::size_t x = 1; x < numberOfRows -1 ; ++x) {
+      new_grid(x,numberOfCols -1 ) = old_grid(x,numberOfCols-1);
+    }
+    for (std::size_t y = 1; y < numberOfCols -1; ++y) {
+      new_grid(numberOfRows - 1,y) = old_grid(numberOfRows - 1,y);
     }
 
     for (std::size_t x = 1; x < numberOfRows - 1; ++x) {
