@@ -16,7 +16,7 @@
 
   public:
     Grid(std::size_t rows, std::size_t cols) :
-    rows_(rows), cols_(cols), grid_(rows*cols,0.0) {}
+    rows_(rows), cols_(cols), grid_(rows*cols,0) {}
 
     std::size_t rows() const {
       return rows_;
@@ -41,26 +41,39 @@
   void apply_stencil(const Grid& old_grid, Grid& new_grid) {
 
 
-    std::size_t numberOfRows = old_grid.rows();
-    std::size_t numberOfCols = old_grid.cols();
+    const std::size_t numberOfRows = old_grid.rows();
+    const std::size_t numberOfCols = old_grid.cols();
 
     // for (std::size_t x = 0; x < numberOfRows; ++x) {
     //   for (std::size_t y = 0; y < numberOfCols; ++y) {
     //     new_grid(x,y) = old_grid(x,y); ///map old grid to the new one
     //   }
     // }
+
     for (std::size_t y = 0; y < numberOfCols; ++y) {
-      new_grid(0,y) = old_grid(0,y);
+      new_grid(0, y) = old_grid(0, y);
+      new_grid(numberOfRows - 1, y) = old_grid(numberOfRows - 1, y);
     }
+
     for (std::size_t x = 0; x < numberOfRows; ++x) {
-      new_grid(x,0) = old_grid(x,0);
+      new_grid(x, 0) = old_grid(x, 0);
+      new_grid(x, numberOfCols - 1) = old_grid(x, numberOfCols - 1);
     }
-    for (std::size_t x = 1; x < numberOfRows -1 ; ++x) {
-      new_grid(x,numberOfCols -1 ) = old_grid(x,numberOfCols-1);
-    }
-    for (std::size_t y = 1; y < numberOfCols -1; ++y) {
-      new_grid(numberOfRows - 1,y) = old_grid(numberOfRows - 1,y);
-    }
+
+
+
+    // for (std::size_t y = 0; y < numberOfCols; ++y) {
+    //   new_grid(0,y) = old_grid(0,y);
+    // }
+    // for (std::size_t x = 0; x < numberOfRows; ++x) {
+    //   new_grid(x,0) = old_grid(x,0);
+    // }
+    // for (std::size_t x = 1; x < numberOfRows -1 ; ++x) {
+    //   new_grid(x,numberOfCols -1 ) = old_grid(x,numberOfCols-1);
+    // }
+    // for (std::size_t y = 1; y < numberOfCols -1; ++y) {
+    //   new_grid(numberOfRows - 1,y) = old_grid(numberOfRows - 1,y);
+    // }
 
     for (std::size_t x = 1; x < numberOfRows - 1; ++x) {
       for (std::size_t y = 1; y < numberOfCols - 1; ++y) {
