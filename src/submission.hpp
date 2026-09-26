@@ -55,14 +55,8 @@
     }
 
     //Interior five point stencil
+    #pragma omp parallel for
     for (std::size_t x = 1; x < numberOfRows - 1; ++x) {
-
-      // const std::size_t top = (x-1) * numberOfCols;
-      // const std::size_t current = x * numberOfCols;
-      // const std::size_t bottom = (x+1) * numberOfCols;
-
-
-#pragma omp simd
       for (std::size_t y = 1; y < numberOfCols - 1; ++y) {
         new_grid(x,y) = 0.5 * old_grid(x,y) +
                 0.125 * (old_grid(x-1,y) + old_grid(x+1,y) +
